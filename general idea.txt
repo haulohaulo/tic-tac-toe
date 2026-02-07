@@ -1,0 +1,2 @@
+1. only 8 possible combinations of connection
+2. check if the position's of all player's coins match one of the combinations
