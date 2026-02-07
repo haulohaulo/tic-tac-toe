@@ -3,7 +3,8 @@ let game = {
         ["tl", "tm", "tr"],
         ["ml", "mm", "mr"],
         ["bl", "bm", "br"]
-    ]   
+    ],
+    state: "running"
 }
 
 let player1 = {
@@ -70,6 +71,7 @@ function turn(player) {
         for (let i = 0; i < winningCombinations.length; i++) {
             if (checkArr(winningCombinations[i]) === true) {
                 console.log(`${player.name} wins yay`);
+                game.state = "ends"
             };
         }
         }
@@ -85,5 +87,14 @@ function turn(player) {
 
 for (let i = 0; i < 9; i++) {
     turn(player1);
+    if (game.state == "ends") {
+        console.log("game ends")
+        break;
+        
+    }
     turn(player2);
+    if (game.state == "ends") {
+        console.log("game ends")
+        break;
+    }
 }
