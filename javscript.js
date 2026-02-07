@@ -1,5 +1,6 @@
 let game = {
-    board:[["tl", "tm", "tr"],
+    board:[
+        ["tl", "tm", "tr"],
         ["ml", "mm", "mr"],
         ["bl", "bm", "br"]
     ]   
@@ -8,59 +9,81 @@ let game = {
 let player1 = {
     name: "Player1",
     mark: "X",
-    placement:[]
 }
 
 let player2 = {
     name: "Player2",
     mark: "O",
-    placement: []
-}
-
-let gameflow = {
     
 }
 
 
-function playerAction(player) {
-    
-    const playerLocation = prompt(`${player.name}'s location:`);
+function turn(player) {
 
-    updateBoard();
+    const topRow = game.board[0];
+    const middleRow = game.board[1];
+    const bottomRow = game.board[2];
     
     
     function updateBoard() {
-        const row = playerLocation.substring(0,1); //reference for which row player has selected
-        switch (row) {
+        const rowReference = playerLocation.substring(0,1); //reference for which row the player has selected
+
+        function editRow(row) {
+            for (let i = 0; i < row.length; i++) {
+                if (playerLocation == row[i]) {
+                    row[i] = player.mark;
+                }
+            }
+        }
+
+        switch (rowReference) {
             case "t":
-                editRow(0);
+                editRow(topRow);
                 break;
             case "m":
-                editRow(1);
+                editRow(middleRow);
                 break;
             case "b":
-                editRow(2);
+                editRow(bottomRow);
                 break;
         }
         console.log(game.board);   
     }
    
 
-    function editRow(rowNumber) {
-        for (let i = 0; i < game.board[rowNumber].length; i++) {
-        if (playerLocation == game.board[rowNumber][i]) {
-            game.board[rowNumber][i] = player.mark;
+    
+
+    function checkWinner() {
+        const winningCombinations = [
+            [topRow[0], topRow[1], topRow[2]],
+            [middleRow[0], middleRow[1], middleRow[2]],
+            [bottomRow[0], bottomRow[1], bottomRow[2]],
+            [topRow[0], middleRow[0], bottomRow[0]],
+            [topRow[1], middleRow[1], bottomRow[1]],
+            [topRow[2], middleRow[2], bottomRow[2]],
+            [topRow[0], middleRow[1], bottomRow[2]],
+            [bottomRow[0], middleRow[1], topRow[2]]
+        ]
+
+        const checkArr = arr => arr.every(v => v === arr[0]);  //check if the value of every cell in each winning combination array is the same
+
+        for (let i = 0; i < winningCombinations.length; i++) {
+            if (checkArr(winningCombinations[i]) === true) {
+                console.log(`${player.name} wins yay`);
+            };
         }
-    }
-    }
+        }
     
-    
-    
+
+    const playerLocation = prompt(`${player.name}'s location:`);
+    updateBoard();
+    checkWinner();
+
 }
+    
 
-playerAction(player1);
 
-
-/* console.table(game.board);
-
-console.log(playerAction(player2)); */
+for (let i = 0; i < 9; i++) {
+    turn(player1);
+    turn(player2);
+}
