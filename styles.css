@@ -1,0 +1,48 @@
+body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+
+    display: grid;
+    justify-content: center;
+    align-content: center;
+
+    
+}
+
+button {
+    height: 10rem;
+    width: 10rem;
+    font-size: 80%;
+    border: none;
+    border-radius: 15px;
+    
+}
+
+span {
+    font-size: 10em;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.board div {
+    display: flex;
+}
+
+
+.board, .board div {
+    gap: 7px;
+}
+
+button:hover {
+    background-color: #6efffa;
+    
+}
+
+button, button:active {
+    background-color: #42f5ef;
+}
