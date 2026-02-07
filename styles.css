@@ -6,21 +6,36 @@ body {
     display: grid;
     justify-content: center;
     align-content: center;
+    background-color: #1a1b30;
 
     
 }
 
 button {
+    
     height: 10rem;
     width: 10rem;
     font-size: 80%;
     border: none;
     border-radius: 15px;
+
+    
     
 }
 
-span {
-    font-size: 10em;
+.circle {
+    height: 6em;
+    filter: invert(67%) sepia(36%) saturate(845%) hue-rotate(332deg) brightness(99%) contrast(93%);
+}
+
+.cross {
+    height: 95%;
+    filter: invert(55%) sepia(91%) saturate(4081%) hue-rotate(300deg) brightness(97%) contrast(97%);
+
+
+
+    
+
 }
 
 .board {
