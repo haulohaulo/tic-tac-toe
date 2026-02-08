@@ -1,6 +1,7 @@
-let buttons = document.querySelectorAll(".row button");
-let dialog = document.querySelector("dialog");
-
+const buttons = document.querySelectorAll(".row button");
+const dialog = document.querySelector("dialog");
+const playBtn = document.querySelector(".playBtn");
+const form = document.querySelector("form");
 
 let player1 = {
     name: "Player1",
@@ -12,7 +13,6 @@ let player2 = {
     mark: ["circle", "./marks/circle-svgrepo-com.svg"]
     
 }
-
 
 let gameflow = {
     currentPlayer: player1,
@@ -32,10 +32,21 @@ buttons.forEach(button => {
 })
 
 
-dialog.showModal();
 
-/* player1.name = prompt("What is ur name?");
-player2.name = prompt("player 2 name pls");
- */
+function playerInput() {
+
+    dialog.showModal();
+
+    playBtn.addEventListener('click', () => {
+        dialog.close();
+    })
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+    })    
+}
+
+
+playerInput();
 
 
