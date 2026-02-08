@@ -1,4 +1,5 @@
-let buttons = document.querySelectorAll("button");
+let buttons = document.querySelectorAll(".row button");
+let dialog = document.querySelector("dialog");
 
 
 let player1 = {
@@ -14,7 +15,8 @@ let player2 = {
 
 
 let gameflow = {
-    currentPlayer: ""
+    currentPlayer: player1,
+    round: "0"
 }
 
 
@@ -28,3 +30,12 @@ buttons.forEach(button => {
         button.disabled = true;
     })
 })
+
+
+dialog.showModal();
+
+/* player1.name = prompt("What is ur name?");
+player2.name = prompt("player 2 name pls");
+ */
+
+

@@ -3,32 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="./styles.css">
     <script src="./javascript.js" defer></script>
 </head>
 <body>
+    <dialog>
+        <form>
+            <legend>SET GAME</legend>
+            <div>
+                <label for="player1-Name">Player 1's Name</label>
+                <input type="text" id="player1-Name" name="player1-Name">
+            </div>
+            <div>
+                <label for="player2-Name">Player 2's Name</label>
+                <input type="text" id="player2-Name" name="player2-Name">
+            </div>
+            <div>
+                <label for="rounds">Number of Rounds</label>
+                <input type="number" id="rounds" name="rounds" min="1" max="5">
+            </div>
+            <button class="submit" type="submit">PLAY</button>
+        </form>
+    </dialog>
     <div class="board">
-        <div>
-            <button id="tl">
-                
-            </button>
-            
-            <button id="tm">
-                <img class="cross" src="./marks/cross-svgrepo-com.svg">
-            </button>
-            <button id="tr">
-                <img class="circle" src="./marks/circle-svgrepo-com.svg">
-            </button>
-
-           
+        <div class="row">
+            <button id="tl"></button>
+            <button id="tm"></button>
+            <button id="tr"></button>
         </div>
-        <div>
+        <div class="row">
             <button id="ml"></button>
             <button id="mm"></button>
             <button id="mr"></button>
         </div>
-        <div>
+        <div class="row">
             <button id="bl"></button>
             <button id="bm"></button>
             <button id="br"></button>
