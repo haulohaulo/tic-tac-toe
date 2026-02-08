@@ -53,7 +53,7 @@ button {
     gap: 7px;
 }
 
-button:hover {
+button:enabled:hover {
     background-color: #6efffa;
     
 }

@@ -25,5 +25,6 @@ buttons.forEach(button => {
         mark.className = player2.mark[0];
         mark.src = player2.mark[1];
         button.appendChild(mark);
+        button.disabled = true;
     })
 })
