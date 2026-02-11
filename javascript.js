@@ -19,18 +19,42 @@ let player2 = {
 
 let gameflow = {
     currentPlayer: player1,
-    round: "0"
+    // allPlayers: [player1, player2],
+
+    round: "Round 1"
 }
+
+
 
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
-        console.log("clicked");
-        let mark = document.createElement("img");
-        mark.className = player2.mark[0];
-        mark.src = player2.mark[1];
-        button.appendChild(mark);
-        button.disabled = true;
+
+        function addMark() {
+            let mark = document.createElement("img");
+            mark.className = gameflow.currentPlayer.mark[0];
+            mark.src = gameflow.currentPlayer.mark[1];
+            button.appendChild(mark);
+            button.disabled = true;
+        }
+        
+        function swapPlayer() {
+            if (gameflow.currentPlayer == player1) {
+                gameflow.currentPlayer = player2;
+            } else if (gameflow.currentPlayer == player2) {
+                gameflow.currentPlayer = player1;
+            }
+        }
+
+        addMark();
+        swapPlayer();
+
+        
+
+        
+        
+
+        
     })
 })
 
@@ -71,6 +95,6 @@ function playerInput() {
 }
 
 
-playerInput();
+// playerInput();
 
 
