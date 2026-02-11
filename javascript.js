@@ -2,6 +2,9 @@ const buttons = document.querySelectorAll(".row button");
 const dialog = document.querySelector("dialog");
 const playBtn = document.querySelector(".playBtn");
 const form = document.querySelector("form");
+const player1Display = document.getElementById("p1");
+const player2Display = document.getElementById("p2");
+const numberOfRounds = document.querySelector(".roundDisplay");
 
 let player1 = {
     name: "Player1",
@@ -43,6 +46,17 @@ function playerInput() {
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
+
+        player1.name = document.getElementById("player1-Name").value;
+        player2.name = document.getElementById("player2-Name").value;
+        gameflow.round = document.getElementById("rounds").value;
+
+        player1Display.textContent = player1.name;
+        player2Display.textContent = player2.name;
+        numberOfRounds.textContent = gameflow.round;
+
+       
+        
     })    
 }
 
