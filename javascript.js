@@ -2,20 +2,24 @@ const buttons = document.querySelectorAll(".row button");
 const dialog = document.querySelector("dialog");
 const playBtn = document.querySelector(".playBtn");
 const form = document.querySelector("form");
-const player1Display = document.getElementById("p1");
-const player2Display = document.getElementById("p2");
+const player1NameDisplay = document.querySelector("#p1 .playerName");
+const player2NameDisplay = document.querySelector("#p2 .playerName");
+const player1ScoreDisplay = document.querySelector("#p1 .playerScore");
+const player2ScoreDisplay = document.querySelector("#p2 .playerScore");
 const numberOfRounds = document.querySelector(".roundDisplay");
 
 let player1 = {
     name: "Player 1",
     mark: ["cross", "./marks/cross-svgrepo-com.svg"],
-    markPlacements: []
+    markPlacements: [],
+    score: 0
 }
 
 let player2 = {
     name: "Player 2",
     mark: ["circle", "./marks/circle-svgrepo-com.svg"],
-    markPlacements: []
+    markPlacements: [],
+    score: 0
     
 }
 
@@ -40,6 +44,7 @@ function playerInput() {
 
         const player1NameValue = document.getElementById("player1-Name").value;
         const player2NameValue = document.getElementById("player2-Name").value;
+        
         const roundValue = document.getElementById("rounds").value;
         if (player1NameValue) {
             player1.name = player1NameValue;
@@ -52,16 +57,19 @@ function playerInput() {
         }
         
 
-        player1Display.textContent = player1.name;
-        player2Display.textContent = player2.name;
+        player1NameDisplay.textContent = player1.name;
+        player2NameDisplay.textContent = player2.name;
         numberOfRounds.textContent = gameflow.round;
+
+        player1ScoreDisplay.textContent = player1.score;
+        player2ScoreDisplay.textContent = player2.score;
 
        
         
     })    
 }
 
-function playGame() {
+function playRound() {
     buttons.forEach(button => {
         button.addEventListener('click', () => {
 
@@ -72,9 +80,19 @@ function playGame() {
                 button.appendChild(mark);
                 button.disabled = true;
             }
+
             
-            function checkWinner() {
-                const winningCombinations = [
+            
+            function swapPlayer() {
+                if (gameflow.currentPlayer == player1) {
+                    gameflow.currentPlayer = player2;
+                } else if (gameflow.currentPlayer == player2) {
+                    gameflow.currentPlayer = player1;
+                }
+            }
+
+            function checkScorer() {
+                const scoringCombinations = [
                     ["tl", 'tm', 'tr'],
                     ['ml', 'mm', 'mr'],
                     ['bl', 'bm', 'br'],
@@ -90,31 +108,43 @@ function playGame() {
                 gameflow.currentPlayer.markPlacements.push(button.id);
                 console.log(gameflow.currentPlayer.markPlacements);
 
-                for (let i = 0; i < winningCombinations.length; i++) {
-                    const checkWinningCombinations = (arr, target) => target.every(v => arr.includes(v));
-                    const isThreeInARow = checkWinningCombinations(gameflow.currentPlayer.markPlacements, winningCombinations[i]); 
+                for (let i = 0; i < scoringCombinations.length; i++) {
+                    const checkScoringCombinations = (arr, target) => target.every(v => arr.includes(v));
+                    const isThreeInARow = checkScoringCombinations(gameflow.currentPlayer.markPlacements, scoringCombinations[i]); 
+
+                    
                     if (isThreeInARow == true) {
-                        console.log(`${gameflow.currentPlayer.name} wins!`);
-                    }
+                        endRound();
+                    };
 
                     
                 }
             }
 
-            function swapPlayer() {
-                if (gameflow.currentPlayer == player1) {
-                    gameflow.currentPlayer = player2;
-                } else if (gameflow.currentPlayer == player2) {
-                    gameflow.currentPlayer = player1;
-                }
-            }
+            
 
             addMark();
-            checkWinner();
-            swapPlayer();            
+            checkScorer();
+            swapPlayer();
             
         })
     })
+}
+
+
+function endRound() {
+    
+    function updateScore() {
+        if (gameflow.currentPlayer == player1) {
+            player1.score++;
+            player1ScoreDisplay.textContent = player1.score;
+        } else {
+            player2.score++;
+            player2ScoreDisplay.textContent = player2.score;
+        }
+    }
+
+    updateScore();
 }
 
 
@@ -124,7 +154,7 @@ function playGame() {
 
 
 
-// playerInput();
-playGame();
+playerInput();
+playRound();
 
 
