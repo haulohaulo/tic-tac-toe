@@ -61,8 +61,8 @@ function playerInput() {
         player2NameDisplay.textContent = player2.name;
         numberOfRounds.textContent = gameflow.round;
 
-        player1ScoreDisplay.textContent = player1.score;
-        player2ScoreDisplay.textContent = player2.score;
+        player1ScoreDisplay.textContent = `Score: ${player1.score}`;
+        player2ScoreDisplay.textContent = `Score: ${player2.score}`;
 
        
         
@@ -75,14 +75,13 @@ function playRound() {
 
             function addMark() {
                 let mark = document.createElement("img");
-                mark.className = gameflow.currentPlayer.mark[0];
+                mark.className = "mark";
+                mark.id = gameflow.currentPlayer.mark[0];
                 mark.src = gameflow.currentPlayer.mark[1];
                 button.appendChild(mark);
                 button.disabled = true;
             }
 
-            
-            
             function swapPlayer() {
                 if (gameflow.currentPlayer == player1) {
                     gameflow.currentPlayer = player2;
@@ -112,16 +111,11 @@ function playRound() {
                     const checkScoringCombinations = (arr, target) => target.every(v => arr.includes(v));
                     const isThreeInARow = checkScoringCombinations(gameflow.currentPlayer.markPlacements, scoringCombinations[i]); 
 
-                    
                     if (isThreeInARow == true) {
                         endRound();
                     };
-
-                    
                 }
             }
-
-            
 
             addMark();
             checkScorer();
@@ -133,18 +127,33 @@ function playRound() {
 
 
 function endRound() {
-    
+
     function updateScore() {
         if (gameflow.currentPlayer == player1) {
             player1.score++;
-            player1ScoreDisplay.textContent = player1.score;
+            player1ScoreDisplay.textContent = `Score: ${player1.score}`;
         } else {
             player2.score++;
-            player2ScoreDisplay.textContent = player2.score;
+            player2ScoreDisplay.textContent = `Score: ${player2.score}`;
         }
+    }
+    
+
+    function resetRound() {
+        
+        const allMarks = document.querySelectorAll(".mark");
+
+        allMarks.forEach(eachMark => {
+            eachMark.remove();
+        })
+
+        player1.markPlacements = [];
+        player2.markPlacements = [];
+        
     }
 
     updateScore();
+    setTimeout(() => resetRound(), 1500);
 }
 
 
