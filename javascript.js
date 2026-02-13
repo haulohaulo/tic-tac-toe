@@ -1,5 +1,5 @@
 const buttons = document.querySelectorAll(".row button");
-const dialog = document.querySelector("dialog");
+
 const playBtn = document.querySelector(".playBtn");
 const form = document.querySelector("form");
 const player1NameDisplay = document.querySelector("#p1 .playerName");
@@ -37,13 +37,7 @@ let gameflow = {
 
 
 function playerInput() {
-
-    dialog.showModal();
-
-    playBtn.addEventListener('click', () => {
-        dialog.close();
-    })
-
+    
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -72,6 +66,8 @@ function playerInput() {
 
         
         playRound();
+
+        form.remove();
         
     })    
 }
@@ -189,7 +185,7 @@ function endRound() {
 
     }
 
-    function resetRound() {
+    function setNewRound() {
         
         const allMarks = document.querySelectorAll(".mark");
 
@@ -232,7 +228,7 @@ function endRound() {
         announceWinner();
     } else {
         announceRoundScorer();
-        setTimeout(() => resetRound(), 1500);
+        setTimeout(() => setNewRound(), 1500);
     }
     
     

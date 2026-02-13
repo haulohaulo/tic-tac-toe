@@ -8,34 +8,29 @@
     <script src="./javascript.js" defer></script>
 </head>
 <body>
-    <dialog>
-        <form id="myForm">
-            <legend>SET GAME</legend>
-            <div>
-                <label for="player1-Name">Player 1's Name</label>
-                <input type="text" id="player1-Name" name="player1-Name">
-            </div>
-            <div>
-                <label for="player2-Name">Player 2's Name</label>
-                <input type="text" id="player2-Name" name="player2-Name">
-            </div>
-            <div>
-                <label for="rounds">Number of Rounds</label>
-                <input type="number" id="rounds" name="rounds" min="1" max="5">
-            </div>
-            <button class="playBtn" type="submit">PLAY</button>
-        </form>
-    </dialog>
+    <form id="myForm">
+        <legend>SET GAME</legend>
+        <div>
+            <label for="player1-Name">Player 1's Name</label>
+            <input type="text" id="player1-Name" name="player1-Name">
+        </div>
+        <div>
+            <label for="player2-Name">Player 2's Name</label>
+            <input type="text" id="player2-Name" name="player2-Name">
+        </div>
+        <div>
+            <label for="rounds">Number of Rounds</label>
+            <input type="number" id="rounds" name="rounds" min="1" max="5">
+        </div>
+        <button class="playBtn" type="submit">PLAY</button>
+    </form>
     <div class="roundDisplay">
         
     </div>
     <div id="playerInstruction">
         
     </div>
-    <div class="playerDisplay" id="p1">
-        <div class="playerName"></div>
-        <div class="playerScore"></div>
-    </div>
+    
     <div class="board">
         <div class="row">
             <button id="tl"></button>
@@ -52,6 +47,10 @@
             <button id="bm"></button>
             <button id="br"></button>
         </div>
+    </div>
+    <div class="playerDisplay" id="p1">
+        <div class="playerName"></div>
+        <div class="playerScore"></div>
     </div>
     <div class="playerDisplay" id="p2">
         <div class="playerName"></div>
