@@ -6,7 +6,7 @@ const player1NameDisplay = document.querySelector("#p1 .playerName");
 const player2NameDisplay = document.querySelector("#p2 .playerName");
 const player1ScoreDisplay = document.querySelector("#p1 .playerScore");
 const player2ScoreDisplay = document.querySelector("#p2 .playerScore");
-const numberOfRounds = document.querySelector(".roundDisplay");
+const numberOfRoundsDisplay = document.querySelector(".roundDisplay");
 
 let player1 = {
     name: "Player 1",
@@ -25,9 +25,9 @@ let player2 = {
 
 let gameflow = {
     currentPlayer: player1,
-    // allPlayers: [player1, player2],
 
-    round: "Round 1"
+    round: 1,
+    totalRounds: 1
 }
 
 
@@ -45,34 +45,36 @@ function playerInput() {
         const player1NameValue = document.getElementById("player1-Name").value;
         const player2NameValue = document.getElementById("player2-Name").value;
         
-        const roundValue = document.getElementById("rounds").value;
+        const totalRoundsValue = document.getElementById("rounds").value;
         if (player1NameValue) {
             player1.name = player1NameValue;
         }
         if (player2NameValue) {
             player2.name = player2NameValue;
         }
-        if (roundValue) {
-            gameflow.round = roundValue;
+        if (totalRoundsValue) {
+            gameflow.totalRounds = totalRoundsValue;
         }
         
 
         player1NameDisplay.textContent = player1.name;
         player2NameDisplay.textContent = player2.name;
-        numberOfRounds.textContent = gameflow.round;
+        numberOfRoundsDisplay.textContent = `Round ${gameflow.round} / ${gameflow.totalRounds}`;
 
         player1ScoreDisplay.textContent = `Score: ${player1.score}`;
         player2ScoreDisplay.textContent = `Score: ${player2.score}`;
 
-       
+        
+        playRound();
         
     })    
 }
 
 function playRound() {
+    console.log("playround");
     buttons.forEach(button => {
         button.addEventListener('click', () => {
-
+            console.log(gameflow.currentPlayer);
             function addMark() {
                 let mark = document.createElement("img");
                 mark.className = "mark";
@@ -138,6 +140,9 @@ function endRound() {
         }
     }
     
+    function announceWinner() {
+        console.log("winner");
+    }
 
     function resetRound() {
         
@@ -149,11 +154,31 @@ function endRound() {
 
         player1.markPlacements = [];
         player2.markPlacements = [];
-        
+
+        buttons.forEach(button => {
+            button.disabled = false;
+        })
+
+        if (gameflow.round < gameflow.totalRounds) {
+            nextRound();
+        }
     }
 
+    function nextRound() {
+        gameflow.round++;
+        numberOfRoundsDisplay.textContent = `Round ${gameflow.round} / ${gameflow.totalRounds}`;
+
+    }
+
+    
+    
+
     updateScore();
+    if (gameflow.round == gameflow.totalRounds) {
+        announceWinner();
+    }
     setTimeout(() => resetRound(), 1500);
+    
 }
 
 
@@ -164,6 +189,8 @@ function endRound() {
 
 
 playerInput();
-playRound();
+
+
+
 
 
