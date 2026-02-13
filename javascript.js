@@ -132,6 +132,12 @@ function endRound() {
 
     let isWinner = false;
 
+    function disableButtons() {
+        buttons.forEach(button => {
+            button.disabled = true;
+        })
+    }
+
     function updateScore() {
         if (gameflow.currentPlayer == player1) {
             player1.score++;
@@ -144,9 +150,8 @@ function endRound() {
     
     function announceWinner() {
         console.log("winner");
-        buttons.forEach(button => {
-            button.disabled = true;
-        })
+        
+        
 
         isWinner = true;
 
@@ -180,7 +185,7 @@ function endRound() {
 
     
     
-
+    disableButtons();
     updateScore();
     if (gameflow.round == gameflow.totalRounds) {
         announceWinner();
