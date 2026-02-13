@@ -8,6 +8,9 @@ const player1ScoreDisplay = document.querySelector("#p1 .playerScore");
 const player2ScoreDisplay = document.querySelector("#p2 .playerScore");
 const numberOfRoundsDisplay = document.querySelector(".roundDisplay");
 const playerInstruction = document.querySelector("#playerInstruction");
+const slider = document.querySelector(".slider");
+let sliderValue = document.querySelector(".sliderValue");
+
 
 
 
@@ -37,7 +40,10 @@ let gameflow = {
 
 
 function playerInput() {
-    
+    slider.addEventListener('input', () => {
+        sliderValue.textContent = slider.value;
+    })
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
