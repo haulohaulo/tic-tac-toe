@@ -12,13 +12,14 @@ body {
     height: 100vh;
 
     display: grid;
-    justify-content: space-evenly;
+    
     align-items: center;
     background-color: #1a1b30;
     grid-auto-flow: column;
+    gap: 1em;
     
 
-    grid-template-rows: .5fr .5fr 3fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
     grid-template-columns: repeat(3, 1fr);
 
     font-size: 1.2rem;
@@ -33,43 +34,30 @@ body {
     text-align: center;
 }
 
-#p1, #p2, .roundDisplay, #playerInstruction {
+.topSection {
     grid-column: 2 / 3;
-}
-
-#p1 {
-    grid-row: -1 / -2;
-    justify-self: start;
-}
-
-#p2 {
-    
-    grid-row: -1 / -2;
-    justify-self: end;
-    
-}
-
-.roundDisplay {
-    
     grid-row: 1 / 2;
-    
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+
 }
 
-#playerInstruction {
-    
-    grid-row: 2 / 3;
+.bottomSection {
+    grid-column: 2 / 3;
+    grid-row: -1 / -2;
+
+    display: flex;
+    justify-content: space-around;
 }
 
-.row button {
-    
-    height: 10rem;
-    width: 10rem;
+
+.row button {    
+    height: 10em;
+    width: 10em;
     font-size: 80%;
     border: none;
     border-radius: 15px;
-
-    
-    
 }
 
 #circle {
@@ -84,7 +72,7 @@ body {
 
 form {
     grid-column: 2 / 3;
-    grid-row: 1 / 3;
+    grid-row: 1 / 2;
     background-color: white;
    
 }
@@ -93,12 +81,8 @@ form {
     display: flex;
     flex-direction: column;
     grid-column: 2 / 3 ;
-    grid-row: 3 / -1;
-    justify-self: center;
-    
-    
-
-    
+    grid-row: 2 / 3;
+    justify-self: center;    
 }
 
 .board div {
