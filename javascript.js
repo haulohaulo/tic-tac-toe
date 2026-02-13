@@ -130,6 +130,8 @@ function playRound() {
 
 function endRound() {
 
+    let isWinner = false;
+
     function updateScore() {
         if (gameflow.currentPlayer == player1) {
             player1.score++;
@@ -142,6 +144,12 @@ function endRound() {
     
     function announceWinner() {
         console.log("winner");
+        buttons.forEach(button => {
+            button.disabled = true;
+        })
+
+        isWinner = true;
+
     }
 
     function resetRound() {
@@ -177,7 +185,10 @@ function endRound() {
     if (gameflow.round == gameflow.totalRounds) {
         announceWinner();
     }
-    setTimeout(() => resetRound(), 1500);
+    if (isWinner == false) {
+        setTimeout(() => resetRound(), 1500);
+    }
+    
     
 }
 
