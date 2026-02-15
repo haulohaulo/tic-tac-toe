@@ -9,14 +9,14 @@ textarea {
 body {
     padding: 0;
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
 
     display: grid;
     
     align-items: center;
     background-color: #1a1b30;
     grid-auto-flow: column;
-    gap: 1em;
+    gap: 1rem;
     
 
     grid-template-rows: 1fr 3fr 1fr;
@@ -29,7 +29,7 @@ legend {
 }
 
 .playerDisplay, .roundDisplay, #playerInstruction {
-    font-size: 2em;
+    font-size: 2rem;
     color: yellow;
     text-align: center;
 }
@@ -39,7 +39,7 @@ legend {
     grid-row: 1 / 2;
     display: flex;
     flex-direction: column;
-    gap: 1.5em;
+    gap: 1.5rem;
 
 }
 
@@ -53,20 +53,20 @@ legend {
 
 
 .row button {    
-    height: 10em;
-    width: 10em;
-    font-size: 80%;
+    height: 7rem;
+    width: 7rem;
+    
     border: none;
     border-radius: 15px;
 }
 
 #circle {
-    height: 6em;
+    height: 3rem;
     filter: invert(67%) sepia(36%) saturate(845%) hue-rotate(332deg) brightness(99%) contrast(93%);
 }
 
 #cross {
-    height: 95%;
+    height: 6rem;
     filter: invert(55%) sepia(91%) saturate(4081%) hue-rotate(300deg) brightness(97%) contrast(97%);
 }
 
@@ -91,7 +91,7 @@ form {
 
 
 .board, .board div {
-    gap: 7px;
+    gap: .5rem;
 }
 
 .row button:enabled:hover {
