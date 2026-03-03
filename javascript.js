@@ -35,7 +35,10 @@ let gameflow = {
     round: 1,
     totalRounds: 1,
     someoneWins: false,
-    someoneScores: false
+    someoneScores: false,
+
+    playerClicks: 0,
+    roundDraw: false
 }
 
 
@@ -88,11 +91,10 @@ function swapPlayer() {
 }
 
 function playRound() {
-    console.log("playround");
 
     buttons.forEach(button => {
         button.addEventListener('click', () => {
-            console.log(gameflow.currentPlayer);
+            
             function addMark() {
                 let mark = document.createElement("img");
                 mark.className = "mark";
@@ -100,6 +102,9 @@ function playRound() {
                 mark.src = gameflow.currentPlayer.mark[1];
                 button.appendChild(mark);
                 button.disabled = true;
+
+                gameflow.playerClicks++;
+                console.log(gameflow.playerClicks);
             }
 
             function checkScorer() {
@@ -124,16 +129,24 @@ function playRound() {
                     const isThreeInARow = checkScoringCombinations(gameflow.currentPlayer.markPlacements, scoringCombinations[i]); 
 
                     if (isThreeInARow == true) {
-                        endRound();
-                    } 
+                        updateResult();
+                    }
+                }
+            }
+
+            function checkIsRoundDraw() {
+                if (gameflow.someoneWins == false && gameflow.someoneScores == false && gameflow.playerClicks == 9) {
+                    gameflow.roundDraw = true;
+                    isRoundDraw();
                 }
             }
 
             
-
+            
             addMark();
             checkScorer();
-            if (gameflow.someoneWins == false && gameflow.someoneScores == false) {
+            checkIsRoundDraw();
+            if (gameflow.someoneWins == false && gameflow.someoneScores == false && gameflow.roundDraw == false) {
                 swapPlayer();
             }
             
@@ -143,10 +156,7 @@ function playRound() {
 }
 
 
-function endRound() {
-
-    
-
+function updateResult() {
     function disableButtons() {
         buttons.forEach(button => {
             button.disabled = true;
@@ -183,50 +193,10 @@ function endRound() {
         } else if (player1.score < player2.score) {
             playerInstruction.textContent = `${player2.name} Wins!`;
         } else if (player1.score == player2.score) {
-            playerInstruction.textContent = 'Game Draw';
+            announceGameDraw();
         }
-        
-
-        
-
     }
 
-    function setNewRound() {
-        
-        const allMarks = document.querySelectorAll(".mark");
-
-        allMarks.forEach(eachMark => {
-            eachMark.remove();
-        })
-
-        player1.markPlacements = [];
-        player2.markPlacements = [];
-
-        buttons.forEach(button => {
-            button.disabled = false;
-        })
-
-        gameflow.someoneScores = false;
-
-
-        nextRound();
-
-        
-
-        
-    }
-
-    function nextRound() {
-        gameflow.round++;
-        swapPlayer();
-        numberOfRoundsDisplay.textContent = `Round ${gameflow.round} / ${gameflow.totalRounds}`;
-        playerInstruction.textContent = `${gameflow.currentPlayer.name}'s turn`;
-    }
-
-    
-
-
-    
     disableButtons();
     updateScore();
     checkForWinner();
@@ -236,14 +206,59 @@ function endRound() {
         announceRoundScorer();
         setTimeout(() => setNewRound(), 1500);
     }
-    
+}
+
+
+function isRoundDraw() {
+    if (gameflow.round < gameflow.totalRounds) {
+        playerInstruction.textContent = `Round Draw`;
+        setTimeout(() => setNewRound(), 1500);
+    } else if (gameflow.round == gameflow.totalRounds) {
+        announceGameDraw();
+    }
     
 }
 
 
+function setNewRound() {
+    
+    const allMarks = document.querySelectorAll(".mark");
+
+    allMarks.forEach(eachMark => {
+        eachMark.remove();
+    })
+
+    player1.markPlacements = [];
+    player2.markPlacements = [];
+
+    buttons.forEach(button => {
+        button.disabled = false;
+    })
+
+    gameflow.someoneScores = false;
+    gameflow.roundDraw = false;
+    gameflow.playerClicks = 0;
+
+    function nextRound() {
+        gameflow.round++;
+        swapPlayer();
+        numberOfRoundsDisplay.textContent = `Round ${gameflow.round} / ${gameflow.totalRounds}`;
+        playerInstruction.textContent = `${gameflow.currentPlayer.name}'s turn`;
+    }
+
+    nextRound();
+}
+
+function announceGameDraw() {
+    playerInstruction.textContent = 'Game Draw';
+}
 
 
 
+    
+
+    
+    
 
 
 
