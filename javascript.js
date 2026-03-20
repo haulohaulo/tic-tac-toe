@@ -11,6 +11,12 @@ const playerInstruction = document.querySelector("#playerInstruction");
 const slider = document.querySelector(".slider");
 let sliderValue = document.querySelector(".sliderValue");
 
+const topSection = document.querySelector(".topSection");
+
+const restart = document.querySelector(".restart");
+
+
+
 
 
 
@@ -30,6 +36,8 @@ let player2 = {
 }
 
 let gameflow = {
+
+    gameState: "setGame",
     currentPlayer: player1,
 
     round: 1,
@@ -43,6 +51,9 @@ let gameflow = {
 
 
 function playerInput() {
+
+    restart.style.display = "none";
+
     slider.addEventListener('input', () => {
         sliderValue.textContent = slider.value;
     })
@@ -74,7 +85,8 @@ function playerInput() {
         player2ScoreDisplay.textContent = `Score: ${player2.score}`;
 
         
-        playRound();
+        gameflow.gameState = "playGame";
+        changeState();
 
         form.remove();
         
@@ -129,7 +141,9 @@ function playRound() {
                     const isThreeInARow = checkScoringCombinations(gameflow.currentPlayer.markPlacements, scoringCombinations[i]); 
 
                     if (isThreeInARow == true) {
-                        updateResult();
+                        gameflow.gameState = "endRoundOrGame";
+                        changeState();
+                        
                     }
                 }
             }
@@ -137,7 +151,9 @@ function playRound() {
             function checkIsRoundDraw() {
                 if (gameflow.someoneWins == false && gameflow.someoneScores == false && gameflow.playerClicks == 9) {
                     gameflow.roundDraw = true;
-                    isRoundDraw();
+                    gameflow.gameState = "roundDraw";
+                    changeState();
+                    
                 }
             }
 
@@ -149,6 +165,8 @@ function playRound() {
             if (gameflow.someoneWins == false && gameflow.someoneScores == false && gameflow.roundDraw == false) {
                 swapPlayer();
             }
+
+    
             
             
         })
@@ -202,6 +220,12 @@ function updateResult() {
     checkForWinner();
     if (gameflow.someoneWins == true) {
         announceWinner();
+        restart.style.display = "block";
+        restart.addEventListener('click', () => {
+            gameflow.gameState = "restartGame";
+            changeState();
+            
+        })
     } else {
         announceRoundScorer();
         setTimeout(() => setNewRound(), 1500);
@@ -256,8 +280,67 @@ function announceGameDraw() {
 
 
     
+function restartGame() {
+
+    console.log("restart game")
+    
+   
+    const allMarks = document.querySelectorAll(".mark");
+
+    allMarks.forEach(eachMark => {
+        eachMark.remove();
+    })
+
+    player1.markPlacements = [];
+    player2.markPlacements = [];
+
+    buttons.forEach(button => {
+        button.disabled = false;
+    })
+
+    gameflow.someoneScores = false;
+    gameflow.someoneWins = false;
+    gameflow.roundDraw = false;
+    gameflow.playerClicks = 0;
+
+    gameflow.round = 1;
+    gameflow.currentPlayer = player1;
+
+    player1.score = 0;
+    player2.score = 0;
+
+    player1NameDisplay.textContent = player1.name;
+    player2NameDisplay.textContent = player2.name;
+    numberOfRoundsDisplay.textContent = `Round ${gameflow.round} / ${gameflow.totalRounds}`;
+    playerInstruction.textContent = `${gameflow.currentPlayer.name}'s turn`;
+
+    player1ScoreDisplay.textContent = `Score: ${player1.score}`;
+    player2ScoreDisplay.textContent = `Score: ${player2.score}`;
+            
+    gameflow.gameState = "playGame";
+    
 
     
+    
+    
+}
+
+function changeState() {
+    if (gameflow.gameState == "setGame") {
+        playerInput();
+    } else if (gameflow.gameState == "playGame") {
+        console.log("playround");
+        playRound();
+    } else if (gameflow.gameState == "endRoundOrGame") {
+        updateResult();
+    } else if (gameflow.gameState == "roundDraw") {
+        isRoundDraw();
+    } else if (gameflow.gameState == "restartGame") {
+        restartGame();
+        restart.remove();
+    }
+}
+
     
 
 
