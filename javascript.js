@@ -14,6 +14,7 @@ let sliderValue = document.querySelector(".sliderValue");
 const topSection = document.querySelector(".topSection");
 
 const restart = document.querySelector(".restart");
+restart.style.display = "none";
 
 
 
@@ -51,8 +52,6 @@ let gameflow = {
 
 
 function playerInput() {
-
-    restart.style.display = "none";
 
     slider.addEventListener('input', () => {
         sliderValue.textContent = slider.value;
@@ -143,6 +142,7 @@ function playRound() {
                     if (isThreeInARow == true) {
                         gameflow.gameState = "endRoundOrGame";
                         changeState();
+                        return;
                         
                     }
                 }
@@ -153,6 +153,7 @@ function playRound() {
                     gameflow.roundDraw = true;
                     gameflow.gameState = "roundDraw";
                     changeState();
+                    return;
                     
                 }
             }
@@ -218,12 +219,15 @@ function updateResult() {
     disableButtons();
     updateScore();
     checkForWinner();
+
+    console.log(gameflow.someoneWins);
     if (gameflow.someoneWins == true) {
         announceWinner();
         restart.style.display = "block";
         restart.addEventListener('click', () => {
             gameflow.gameState = "restartGame";
             changeState();
+            restart.style.display = "none";
             
         })
     } else {
@@ -318,6 +322,8 @@ function restartGame() {
     player2ScoreDisplay.textContent = `Score: ${player2.score}`;
             
     gameflow.gameState = "playGame";
+
+    
     
 
     
@@ -326,6 +332,7 @@ function restartGame() {
 }
 
 function changeState() {
+    console.log(`State: ${gameflow.gameState}`);
     if (gameflow.gameState == "setGame") {
         playerInput();
     } else if (gameflow.gameState == "playGame") {
@@ -337,7 +344,6 @@ function changeState() {
         isRoundDraw();
     } else if (gameflow.gameState == "restartGame") {
         restartGame();
-        restart.remove();
     }
 }
 
